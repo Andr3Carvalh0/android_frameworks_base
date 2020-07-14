@@ -2583,6 +2583,8 @@ public final class Settings {
 
             // At one time in System, then Global, but now back in Secure
             MOVED_TO_SECURE.add(Secure.INSTALL_NON_MARKET_APPS);
+
+            MOVED_TO_SECURE.add(Secure.VOLUME_LINK_NOTIFICATION);
         }
 
         @UnsupportedAppUsage
@@ -4462,8 +4464,21 @@ public final class Settings {
          */
         public static final String LOCK_TO_APP_ENABLED = "lock_to_app_enabled";
 
+        /**
+         * Enable/Disable screenshot sound
+         * @hide
+         */
+        public static final String SCREENSHOT_SOUND = "screenshot_sound";
+
         /** @hide */
         public static final Validator LOCK_TO_APP_ENABLED_VALIDATOR = BOOLEAN_VALIDATOR;
+
+        /** @hide */
+        public static final String GESTURE_PILL_TOGGLE = "gesture_pill_toggle";
+
+        /** @hide */
+        private static final Validator GESTURE_PILL_TOGGLE_VALIDATOR =
+                BOOLEAN_VALIDATOR;
 
         /**
          * I am the lolrus.
@@ -4922,6 +4937,27 @@ public final class Settings {
         private static final Validator NAVIGATION_HANDLE_WIDTH_VALIDATOR = ANY_INTEGER_VALIDATOR;
 
         /**
+         * Height of the back gesture listener
+         * 0 means full height
+         * 1 measns half of the screen
+         * 2 means lower third of the screen
+         * 3 means lower sicth of the screen
+         *
+         * @hide
+         */
+        public static final String BACK_GESTURE_HEIGHT = "back_gesture_height";
+
+        /** @hide */
+        private static final Validator BACK_GESTURE_HEIGHT_VALIDATOR =
+                ANY_INTEGER_VALIDATOR;
+
+        /**
+         * Screenrecord: audio source
+         * @hide
+         */
+        public static final String SCREENRECORD_AUDIO_SOURCE = "screenrecord_audio_source";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
@@ -4978,6 +5014,7 @@ public final class Settings {
             VIBRATE_WHEN_RINGING,
             RINGTONE,
             LOCK_TO_APP_ENABLED,
+            GESTURE_PILL_TOGGLE,
             NOTIFICATION_SOUND,
             ACCELEROMETER_ROTATION,
             SHOW_BATTERY_PERCENT,
@@ -4990,6 +5027,7 @@ public final class Settings {
             AMBIENT_NOTIFICATION_LIGHT_AUTOMATIC,
             NOTIFICATION_LIGHT_PULSE,
             NAVIGATION_HANDLE_WIDTH,
+            BACK_GESTURE_HEIGHT,
         };
 
         /**
@@ -5107,6 +5145,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(SIP_ASK_ME_EACH_TIME);
             PRIVATE_SETTINGS.add(POINTER_SPEED);
             PRIVATE_SETTINGS.add(LOCK_TO_APP_ENABLED);
+            PRIVATE_SETTINGS.add(GESTURE_PILL_TOGGLE);
             PRIVATE_SETTINGS.add(EGG_MODE);
             PRIVATE_SETTINGS.add(SHOW_BATTERY_PERCENT);
             PRIVATE_SETTINGS.add(DISPLAY_COLOR_MODE);
@@ -5147,6 +5186,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(MENU_WAKE_SCREEN);
             PRIVATE_SETTINGS.add(ASSIST_WAKE_SCREEN);
             PRIVATE_SETTINGS.add(APP_SWITCH_WAKE_SCREEN);
+            PRIVATE_SETTINGS.add(BACK_GESTURE_HEIGHT);
         }
 
         /**
@@ -5233,6 +5273,7 @@ public final class Settings {
             VALIDATORS.put(SIP_ASK_ME_EACH_TIME, SIP_ASK_ME_EACH_TIME_VALIDATOR);
             VALIDATORS.put(POINTER_SPEED, POINTER_SPEED_VALIDATOR);
             VALIDATORS.put(LOCK_TO_APP_ENABLED, LOCK_TO_APP_ENABLED_VALIDATOR);
+            VALIDATORS.put(GESTURE_PILL_TOGGLE, GESTURE_PILL_TOGGLE_VALIDATOR);
             VALIDATORS.put(EGG_MODE, EGG_MODE_VALIDATOR);
             VALIDATORS.put(WIFI_STATIC_IP, WIFI_STATIC_IP_VALIDATOR);
             VALIDATORS.put(WIFI_STATIC_GATEWAY, WIFI_STATIC_GATEWAY_VALIDATOR);
@@ -5263,6 +5304,7 @@ public final class Settings {
             VALIDATORS.put(MENU_WAKE_SCREEN, MENU_WAKE_SCREENN_VALIDATOR);
             VALIDATORS.put(ASSIST_WAKE_SCREEN, ASSIST_WAKE_SCREEN_VALIDATOR);
             VALIDATORS.put(APP_SWITCH_WAKE_SCREEN, APP_SWITCH_WAKE_SCREEN_VALIDATOR);
+            VALIDATORS.put(BACK_GESTURE_HEIGHT, BACK_GESTURE_HEIGHT_VALIDATOR);
         }
 
         /**
@@ -9526,6 +9568,14 @@ public final class Settings {
 
         private static final Validator AWARE_LOCK_ENABLED_VALIDATOR = BOOLEAN_VALIDATOR;
 
+        /*
+         * Boolean value whether to link ringtone and notification volume
+         * @hide
+         */
+        public static final String VOLUME_LINK_NOTIFICATION = "volume_link_notification";
+
+        private static final Validator VOLUME_LINK_NOTIFICATION_VALIDATOR = BOOLEAN_VALIDATOR;
+
         /**
          * Controls whether tap gesture is enabled.
          * @hide
@@ -9533,6 +9583,12 @@ public final class Settings {
         public static final String TAP_GESTURE = "tap_gesture";
 
         private static final Validator TAP_GESTURE_VALIDATOR = BOOLEAN_VALIDATOR;
+
+        /**
+         * Whether face unlock is allowed only on security view.
+         * @hide
+         */
+        public static final String FACE_UNLOCK_ALWAYS_REQUIRE_SWIPE = "face_unlock_always_require_swipe";
 
         /**
          * This are the settings to be backed up.
@@ -9671,7 +9727,8 @@ public final class Settings {
             GLOBAL_ACTIONS_PANEL_ENABLED,
             AWARE_LOCK_ENABLED,
             AWARE_TAP_PAUSE_GESTURE_COUNT,
-            AWARE_TAP_PAUSE_TOUCH_COUNT
+            AWARE_TAP_PAUSE_TOUCH_COUNT,
+            VOLUME_LINK_NOTIFICATION
         };
 
         /**
@@ -9871,6 +9928,7 @@ public final class Settings {
             VALIDATORS.put(AWARE_TAP_PAUSE_GESTURE_COUNT, NON_NEGATIVE_INTEGER_VALIDATOR);
             VALIDATORS.put(AWARE_TAP_PAUSE_TOUCH_COUNT, NON_NEGATIVE_INTEGER_VALIDATOR);
             VALIDATORS.put(TAP_GESTURE, TAP_GESTURE_VALIDATOR);
+            VALIDATORS.put(VOLUME_LINK_NOTIFICATION, VOLUME_LINK_NOTIFICATION_VALIDATOR);
         }
 
         /**
