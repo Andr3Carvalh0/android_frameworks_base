@@ -52,9 +52,7 @@ public class CaffeineTile extends QSTileImpl<BooleanState> {
 
     @Override
     public BooleanState newTileState() {
-        BooleanState state = new BooleanState();
-        state.handlesLongClick = false;
-        return state;
+        return new BooleanState();
     }
 
     @Override
@@ -82,7 +80,19 @@ public class CaffeineTile extends QSTileImpl<BooleanState> {
 
     @Override
     protected void handleLongClick() {
-        // Do nothing
+        // Set duration to infinity on long click
+        int infinityIndex = DURATIONS.length - 1;
+        if (mLastClickTime == infinityIndex) {
+            // Already at infinity
+            return;
+        }
+        mDuration = infinityIndex;
+        startCountDown(DURATIONS[mDuration]);
+        if (!mWakeLock.isHeld()) {
+            mWakeLock.acquire();
+        }
+        mLastClickTime = SystemClock.elapsedRealtime();
+        refreshState();
     }
 
     @Override
